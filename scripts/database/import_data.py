@@ -1,4 +1,6 @@
 
+# This script imports step-tracking data from a CSV file
+
 
 import pandas as pd
 
