@@ -5,7 +5,7 @@ import pandas as pd
 import sqlite3
 
 # Import the data from the CSV file
-data = pd.read_csv(r'C:\Users\nickp\Documents\step-tracker-analysis\source data.csv')
+data = pd.read_csv(r'C:\Users\nickp\Documents\step-tracker-analysis\Source Data.csv')
 
 # Preview the data
 print("Preview of the data:")
