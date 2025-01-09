@@ -10,8 +10,8 @@ cursor = conn.cursor()
 # Creating table
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS steps (
-    year INTEGER
-    month TEXT
+    year INTEGER,
+    month TEXT,
     miles REAL
     )
 ''')
@@ -19,5 +19,6 @@ CREATE TABLE IF NOT EXISTS steps (
 # Committing changes and closing the connection
 conn.commit()
 conn.close()
+
 
 
