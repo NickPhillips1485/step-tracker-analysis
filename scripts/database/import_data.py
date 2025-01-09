@@ -3,6 +3,11 @@
 
 import pandas as pd
 import sqlite3
+import os
+
+# Check csv file can be found
+file_path = r'C:\Users\nickp\Documents\step-tracker-analysis\Source Data.csv'
+print("File exists:", os.path.exists(file_path))
 
 # Import the data from the CSV file
 data = pd.read_csv(r'C:\Users\nickp\Documents\step-tracker-analysis\Source Data.csv')
