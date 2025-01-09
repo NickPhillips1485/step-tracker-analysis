@@ -10,6 +10,16 @@ cursor = conn.cursor()
 # Drop the table if it exists (to ensure clean creation)
 cursor.execute("DROP TABLE IF EXISTS steps")
 
+# Print the SQL statement to debug it
+print("Executing SQL statement:")
+print('''
+CREATE TABLE IF NOT EXISTS steps (
+    year INTEGER,
+    month TEXT,
+    miles REAL
+)
+''')
+
 # Creating table
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS steps (
