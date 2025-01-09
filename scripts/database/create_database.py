@@ -10,30 +10,15 @@ cursor = conn.cursor()
 # Drop the table if it exists (to ensure clean creation)
 cursor.execute("DROP TABLE IF EXISTS steps")
 
-# Print the SQL statement to debug it
-print("Executing SQL statement:")
-print('''
-CREATE TABLE IF NOT EXISTS steps (
-    year INTEGER,
-    month TEXT,
-    miles REAL
-)
-''')
-
-# Creating table
-cursor.execute('''
-CREATE TABLE IF NOT EXISTS steps (
-    year INTEGER,
-    month TEXT,
-    miles REAL
-)
-''')
+# Creating table (as a single line to avoid formatting issues)
+cursor.execute("CREATE TABLE IF NOT EXISTS steps (year INTEGER, month TEXT, miles REAL)")
 
 # Committing changes and closing the connection
 conn.commit()
 conn.close()
 
 print("Table recreated successfully.")
+
 
 
 
