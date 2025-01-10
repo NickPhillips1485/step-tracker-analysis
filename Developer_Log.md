@@ -71,7 +71,8 @@ touch docs/.gitkeep
 # Stage and commit again
 git add .
 git commit -m "Add .gitkeep files to track empty folders"
-git push origin main```
+git push origin main
+```
 
 ## Database Setup
 
@@ -94,9 +95,7 @@ Loaded Source Data.csv into a pandas DataFrame.
 Inserted the data row-by-row into the steps table.
 Verified that the data was successfully inserted using:
 
-```
 SELECT * FROM steps LIMIT 5;
-```
 
 Challenges & Fixes
 
@@ -109,8 +108,6 @@ Successfully re-imported the data.
 Test Query:
 Wrote a test script to query total miles walked per year:
 
-```
 SELECT year, SUM(miles) FROM steps GROUP BY year;
-```
 
 Verified the results, which displayed yearly totals.
