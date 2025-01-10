@@ -7,13 +7,11 @@ A self-taught project to integrate Python, a SQL database and a GUI into a pract
 - Visualise step trends with graphs and charts.
 
 ## Tools and Technologies
-- Python
-- SQL (SQLite or MySQL)
+- Python (Using Spyder via Anaconda Distribution)
+- SQL (SQLite)
 - Tkinter (for GUI)
 - Matplotlib/Plotly (for visualisation)
 
-## Future Updates
-- [ ] Add data input functionality via the GUI.
-- [ ] Expand visualisation options.
-- [ ] Provide export options for analysed data.
+See Developer Log for further details
+
 
