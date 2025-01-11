@@ -15,3 +15,4 @@ A self-taught project to integrate Python, a SQL database and a GUI into a pract
 See Developer Log for further details
 
 
+

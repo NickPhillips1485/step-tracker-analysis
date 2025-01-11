@@ -10,5 +10,4 @@ __pycache__/
 
 # Ignore output files
 *.csv
-*.png
 *.jpg
