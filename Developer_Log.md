@@ -111,3 +111,22 @@ Wrote a test script to query total miles walked per year:
 SELECT year, SUM(miles) FROM steps GROUP BY year;
 
 Verified the results, which displayed yearly totals.
+
+## Building the GUI
+
+I will say at the outset that the code for the GUI was written by ChatGPT. I have no experience of using `tkinter`, so I used this as a learning opportunity. I reviewed the code thoroughly afterwards, and although I could not yet write it myself, I am starting to get to grips with some of the concepts—such as adding buttons, labels, and dropdown menus.
+
+In a nutshell, the structure of the `main_gui.py` file is as follows: 
+- After importing `tkinter`, separate SQL blocks are written for each of the query options (e.g., Seasonal Trends, Best & Worst Months, etc.).
+- The GUI is then defined using components such as dropdowns, buttons, labels, and a text box to display the output.
+
+It was useful that each time the code was tweaked, I was able to view the latest version of the GUI by running the script in Spyder. This iterative approach allowed me to see immediate results and understand how the changes impacted the interface.
+
+### Challenges
+The code had to go through multiple iterations as some of the queries would not display in the GUI due to `NameError` exceptions. We found ourselves in a cycle whereby fixing errors for some of the queries would inadvertently break others. Eventually, this was resolved, and ChatGPT explained the root of the issue as follows:
+
+> "The issue stemmed from inconsistent inclusion and integration of functions across iterations of the script, including missing functions, conflicts between function names, overwriting of code, and fragmented debugging."
+
+While this was a frustrating challenge, it highlighted the importance of maintaining a structured and systematic approach to coding, especially when integrating multiple components into a single file.
+
+
