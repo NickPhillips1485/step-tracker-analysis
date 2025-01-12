@@ -1,26 +1,28 @@
 import sqlite3
+import matplotlib.pyplot as plt
 import pandas as pd
 
-# Connect to the database
-conn = sqlite3.connect('C:/Users/nickp/Documents/step-tracker-analysis/step_data.db')
+def yearly_miles_walked():
+    # Connect to the database
+    conn = sqlite3.connect(r'C:\Users\nickp\Documents\step-tracker-analysis\step_data.db')
+    query = """
+        SELECT year, SUM(miles) AS total_miles
+        FROM steps
+        GROUP BY year
+    """
+    df = pd.read_sql_query(query, conn)
+    conn.close()
 
-# Query for total miles per year
-query = "SELECT year, SUM(miles) as total_miles FROM steps GROUP BY year"
-data = pd.read_sql_query(query, conn)
+    # Plot the data
+    plt.figure(figsize=(10, 6))
+    plt.bar(df['year'], df['total_miles'], color='skyblue')
+    plt.title('Yearly Miles Walked', fontsize=16)
+    plt.xlabel('Year', fontsize=12)
+    plt.ylabel('Miles Walked', fontsize=12)
+    plt.tight_layout()
+    plt.show()
 
-conn.close()
-
-print(data)
-
-import matplotlib.pyplot as plt
-
-# Plot Yearly Trends
-plt.figure(figsize=(10, 6))
-plt.plot(data['year'], data['total_miles'], marker='o', linestyle='-', color='b')
-plt.title("Yearly Miles Walked", fontsize=16)
-plt.xlabel("Year", fontsize=14)
-plt.ylabel("Total Miles", fontsize=14)
-plt.grid(True)
-plt.show()
+if __name__ == "__main__":
+    yearly_miles_walked()  # Or replace with yearly_growth_comparison()
 
 

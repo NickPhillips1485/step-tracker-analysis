@@ -1,6 +1,15 @@
+import sys
+import os
+
+# Add the project root directory to Python's module search path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+
 import tkinter as tk
 from tkinter import ttk
 import sqlite3
+from scripts.analysis.yearly_miles_walked import yearly_miles_walked
+from scripts.analysis.yearly_growth_comparison import yearly_growth_comparison
+from scripts.analysis.miles_walked_per_month import miles_per_month
 
 # Function to query yearly totals
 def query_database():
@@ -227,6 +236,15 @@ def handle_query(selected_option):
         query_monthly_trends()
     elif selected_option == "Best and Worst Months":
         query_best_and_worst_months()
+    elif selected_option == "Visualisation: Yearly Miles Walked":
+        yearly_miles_walked()
+    elif selected_option == "Visualisation: Yearly Growth Comparison":
+        yearly_growth_comparison()
+    elif selected_option == "Visualisation: Miles Walked Per Month":
+        miles_per_month()
+    else:
+        output_box.insert(tk.END, "Invalid query selected.\n")
+
 
 # Create the main Tkinter window
 root = tk.Tk()
@@ -237,7 +255,7 @@ label = tk.Label(root, text="Hi Kip 'The Stepmaster' Phillips! \n Welcome to the
 label.pack(pady=10)
 
 # Add a text box to display results
-output_box = tk.Text(root, height=20, width=70, font=("Courier New", 12))
+output_box = tk.Text(root, height=30, width=100, font=("Courier New", 12))  # Increased height and width
 output_box.pack(pady=10)
 
 # Create a dropdown menu for query selection
@@ -247,8 +265,12 @@ options = [
     "Monthly Growth Comparison",
     "View Yearly Totals",
     "View Monthly Trends",
-    "Best and Worst Months"
+    "Best and Worst Months",
+    "Visualisation: Yearly Miles Walked",
+    "Visualisation: Yearly Growth Comparison",
+    "Visualisation: Miles Walked Per Month"
 ]
+
 selected_query = tk.StringVar(root)
 selected_query.set(options[0])  # Set default value
 

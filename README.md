@@ -12,6 +12,17 @@ A self-taught project to integrate Python, a SQL database and a GUI into a pract
 - Tkinter (for GUI)
 - Matplotlib/Plotly (for visualisation)
 
+## Version 2.0: Enhanced GUI with Visualisations
+### New Features:
+- Added visualisation options:
+  - Yearly Miles Walked
+  - Yearly Growth Comparison
+  - Miles Walked Per Month
+- Improved formatting in the text output box:
+  - Larger font size
+  - Resizable text box
+- Enhanced dropdown menu to distinguish visualisations from numerical analyses
+
 See Developer Log for further details
 
 
