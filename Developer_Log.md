@@ -173,7 +173,83 @@ Step 7: Preparing for Installation on Another Machine
 Finally, I explored how to package the executable for installation on another machine (e.g., my dad's laptop). To do this, he'll need the main_gui.exe file and the step_data.db file on his machine.
 According to ChatGPT, in future I should also consider bundling the application into a proper installer using tools like Inno Setup or NSIS for a more polished experience.
 
+## Adding Visualisations
 
+A key enhancement to the application was the introduction of visualisations. Three distinct visualisation types were developed:
+
+Yearly Miles Walked: A bar chart representing the total miles walked per year.
+
+Yearly Growth Comparison: A combined line and bar chart displaying total miles per year and the year-over-year growth.
+
+Miles Walked Per Month: A bar chart showing the total miles walked for each month, aggregated across all years.
+
+These visualisations were implemented as standalone Python scripts, ensuring modularity and ease of testing. The scripts were called dynamically from the main GUI, and a dedicated function was created to display the visualisation in a Tkinter popup window.
+
+Transition to a New Release
+
+The addition of visualisations and the changes this entailed effectively meant a new release. This led to the following tasks:
+
+Updating the database path resolution logic - these could not be hardcoded or I would not be able to deploy the application on my dad's laptop. 
+
+Rebuilding the executable to include the new features and dependencies.
+
+Addressing the Database Path Issue
+
+Previously, the database path was hardcoded in various scripts, which created challenges when transitioning the application to a new system. To resolve this, we implemented a dynamic database path resolution mechanism:
+
+We used os.path.dirname and os.path.abspath to locate the directory of the executable or script.
+
+If running as a PyInstaller executable, sys._MEIPASS was used to resolve the base directory.
+
+All instances of the hardcoded database path were replaced with this dynamically constructed db_path variable.
+
+Debugging included adding print statements to confirm the correct database file was being accessed.
+
+## Rebuilding the Executable
+
+The executable needed to be rebuilt with these changes, as well as additional dependencies to ensure smooth functionality:
+
+Updated PyInstaller Command:
+
+```pyinstaller --onefile --add-data "C:/Users/nickp/Documents/step-tracker-analysis/step_data.db;." --add-data "C:/Users/nickp/Documents/step-tracker-analysis/scripts;scripts" --hidden-import=pandas --hidden-import=pandas._libs.tslibs main_gui.py```
+
+Added pandas and its submodules explicitly as hidden imports to resolve runtime issues.
+
+Included the database and scripts directory using --add-data.
+
+Challenges Overcome:
+
+Memory errors during the build process were addressed by running PyInstaller in --exclude-module mode to streamline dependencies.
+
+Specific inclusion of problematic modules like pandas resolved issues with importing during runtime.
+
+Verification:
+
+The new executable was thoroughly tested to ensure it could locate the database and render visualisations correctly.
+
+### Preparing the Application for Distribution
+
+To ensure portability:
+
+The dist/main_gui.exe file and step_data.db were packaged together into a ZIP file.
+
+Clear instructions were provided to extract both files into the same directory on the target system.
+
+### Handling Antivirus Warnings
+
+On the target system, Norton Antivirus flagged the download as suspicious. This was resolved by:
+
+Using Norton’s interface to whitelist the download site and file.
+
+Re-attempting the download after confirming the integrity of the ZIP file.
+
+### Final Installation
+
+The application was successfully installed on the target laptop:
+
+Extracting the ZIP file placed both the executable and database in the same folder.
+
+The application launched successfully, and all functionalities, including visualisations, worked as expected.
 
 
 
