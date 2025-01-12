@@ -11,3 +11,8 @@ __pycache__/
 # Ignore output files
 *.csv
 *.jpg
+
+# Ignore files
+*./scripts/gui/build/
+*./scripts/gui/dist/
+
