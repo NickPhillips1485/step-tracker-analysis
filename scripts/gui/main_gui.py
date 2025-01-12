@@ -1,8 +1,55 @@
 import sys
 import os
+import matplotlib
+matplotlib.use('TkAgg')  # Use Tkinter-based interactive backend
+import sqlite3
+import sys  
 
-# Add the project root directory to Python's module search path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+# Get the base directory dynamically or use a development fallback
+if getattr(sys, 'frozen', False):  # If running as a PyInstaller executable
+    base_dir = sys._MEIPASS
+else:  # Use the actual database location
+    base_dir = r"C:\Users\nickp\Documents\step-tracker-analysis"
+
+# Dynamically construct the database path
+db_path = os.path.join(base_dir, 'step_data.db')
+
+# Get the base directory dynamically
+if getattr(sys, 'frozen', False):  # Check if running as a PyInstaller bundle
+    base_dir = sys._MEIPASS
+else:
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Dynamically construct the full file path for the database
+db_path = os.path.join(base_dir, 'step_data.db')
+
+# Show Visualisation Function
+def show_visualisation(image_path):
+    # Open the image
+    img = Image.open(image_path)
+    img = img.resize((800, 600))  # Resize to fit GUI window
+
+    # Create a new window to display the image
+    img_window = tk.Toplevel(root)
+    img_window.title("Visualisation")
+
+    canvas = tk.Canvas(img_window, width=800, height=600)
+    canvas.pack()
+
+    photo = ImageTk.PhotoImage(img)
+    canvas.create_image(0, 0, anchor=tk.NW, image=photo)
+
+    # Keep a reference to the image to prevent garbage collection
+    img_window.image = photo
+
+
+# Add the current directory to the search path when packaged
+if getattr(sys, 'frozen', False):  # Check if running as an executable
+    base_path = sys._MEIPASS
+else:
+    base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+
+sys.path.append(os.path.join(base_path, 'scripts'))
 
 import tkinter as tk
 from tkinter import ttk
@@ -11,9 +58,10 @@ from scripts.analysis.yearly_miles_walked import yearly_miles_walked
 from scripts.analysis.yearly_growth_comparison import yearly_growth_comparison
 from scripts.analysis.miles_walked_per_month import miles_per_month
 
+
 # Function to query yearly totals
 def query_database():
-    conn = sqlite3.connect('C:/Users/nickp/Documents/step-tracker-analysis/step_data.db')
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     query = "SELECT year, SUM(miles) AS total_miles FROM steps GROUP BY year"
     cursor.execute(query)
@@ -26,7 +74,7 @@ def query_database():
 
 # Function to query and display monthly trends
 def query_monthly_trends():
-    conn = sqlite3.connect('C:/Users/nickp/Documents/step-tracker-analysis/step_data.db')
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     query = """
     SELECT month, AVG(miles) AS avg_miles
@@ -58,7 +106,7 @@ def query_monthly_trends():
 
 # Function to query and display seasonal trends
 def query_seasonal_trends():
-    conn = sqlite3.connect('C:/Users/nickp/Documents/step-tracker-analysis/step_data.db')
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     query = """
     SELECT 
@@ -89,7 +137,7 @@ def query_seasonal_trends():
 
 # Function to display monthly growth comparison
 def query_monthly_growth():
-    conn = sqlite3.connect('C:/Users/nickp/Documents/step-tracker-analysis/step_data.db')
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
     query = """
@@ -134,7 +182,7 @@ def query_monthly_growth():
 
 # Function to display best and worst months
 def query_best_and_worst_months():
-    conn = sqlite3.connect('C:/Users/nickp/Documents/step-tracker-analysis/step_data.db')
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
     # Best and Worst Months for Each Year
@@ -175,7 +223,7 @@ def query_best_and_worst_months():
 
 # Function to display full dataset
 def query_full_dataset():
-    conn = sqlite3.connect('C:/Users/nickp/Documents/step-tracker-analysis/step_data.db')
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 
     query = """
@@ -238,13 +286,20 @@ def handle_query(selected_option):
         query_best_and_worst_months()
     elif selected_option == "Visualisation: Yearly Miles Walked":
         yearly_miles_walked()
+        show_visualisation("yearly_miles_walked.png")
     elif selected_option == "Visualisation: Yearly Growth Comparison":
         yearly_growth_comparison()
+        show_visualisation("yearly_growth_comparison.png")
     elif selected_option == "Visualisation: Miles Walked Per Month":
         miles_per_month()
+        show_visualisation("miles_walked_per_month.png")
     else:
         output_box.insert(tk.END, "Invalid query selected.\n")
 
+# Main GUI Logic
+root = tk.Tk()
+root.title("Step Tracker Analysis")
+# (GUI setup continues here)
 
 # Create the main Tkinter window
 root = tk.Tk()
