@@ -273,8 +273,8 @@ Ran the following command in cmd to strip large files:
 
 Followed up with a Git garbage collection to clean up unnecessary data:
 
-```git reflog expire --expire=now --all
-git gc --prune=now --aggressive```
+```git reflog expire --expire=now --all```
+```git gc --prune=now --aggressive```
 
 In Bash, forced the cleaned repository to be pushed back to GitHub:
 
