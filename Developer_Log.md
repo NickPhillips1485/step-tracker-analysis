@@ -251,7 +251,7 @@ Extracting the ZIP file placed both the executable and database in the same fold
 
 The application launched successfully, and all functionalities, including visualisations, worked as expected.
 
-## Resolving GitHub Repository Issues
+### Resolving GitHub Repository Issues
 
 During the final stages, we encountered issues with pushing changes to the GitHub repository due to large files being included in previous commits. These files exceeded GitHub's maximum file size limits and needed to be removed from the repository history.
 
@@ -279,6 +279,7 @@ git gc --prune=now --aggressive```
 In Bash, forced the cleaned repository to be pushed back to GitHub:
 
 ```git push origin main --force```
+
 
 Outcome:
 
