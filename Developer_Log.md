@@ -251,6 +251,36 @@ Extracting the ZIP file placed both the executable and database in the same fold
 
 The application launched successfully, and all functionalities, including visualisations, worked as expected.
 
+## Resolving GitHub Repository Issues
 
+During the final stages, we encountered issues with pushing changes to the GitHub repository due to large files being included in previous commits. These files exceeded GitHub's maximum file size limits and needed to be removed from the repository history.
 
+Challenges:
 
+Large files like main_gui.exe and other build artifacts were previously committed, causing the push to fail.
+
+Adjusting the .gitignore file did not resolve the issue, as the files were already part of the repository's history.
+
+Solution:
+
+To clean up the repository and remove the large files:
+
+Installed the BFG Repo-Cleaner (Java had to be installed for this to work), a tool for removing large files and sensitive data from Git history.
+
+Ran the following command in cmd to strip large files:
+
+```java -jar bfg-1.14.0.jar --strip-blobs-bigger-than 100M .git```
+
+Followed up with a Git garbage collection to clean up unnecessary data:
+
+```git reflog expire --expire=now --all
+git gc --prune=now --aggressive```
+
+In Bash, forced the cleaned repository to be pushed back to GitHub:
+
+```git push origin main --force```
+
+Outcome:
+
+The repository was successfully updated with a clean history, and large files are now properly excluded by .gitignore. The Developer Log and all necessary code changes are now pushed to GitHub.
+The lesson here is to properly set up the .gitignore at the outset to ensure these large file types are not included (unless they are absolutely critical to the repository).
