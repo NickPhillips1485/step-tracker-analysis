@@ -12,7 +12,8 @@ __pycache__/
 *.csv
 *.jpg
 
-# Ignore files
-*./scripts/gui/build/
-*./scripts/gui/dist/
+# Ignore PyInstaller build and dist directories
+scripts/gui/build/
+scripts/gui/dist/
+
 
